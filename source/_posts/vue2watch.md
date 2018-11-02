@@ -1,8 +1,8 @@
 ---
-title: vue2的监听watch小爆料
+title: vue2.0的监听watch小爆料
 dropcap: true
 date: 2018-08-22 12:16:00
-tags: vue
+tags: vue2.0
 categories: vue
 thumbnail:
 ---
