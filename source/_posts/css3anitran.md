@@ -6,15 +6,8 @@ tags: 'CSS3'
 categories: 'CSS'
 ---
 最近的一个项目的首页参考了两个网站的动画效果
-<video id="video" controls="" preload="none" poster="./css3anitran/top.png">
-    <source id="mp4" src="./css3anitran/top.mp4" type="video/mp4">
-</video>
 ![](./css3anitran/top.png)
 [智能运维](http://iops.ai/),圆球一直匀速旋转。
-
-<video id="video" controls="" preload="none" poster="./css3anitran/middle.png">
-    <source id="mp4" src="./css3anitran/middle.mp4" type="video/mp4">
-</video>
 ![](./css3anitran/middle.png)
 [百度智能运维](http://aiops.baidu.com/#/product/intelligentProduct),背景图片一直匀速来回移动，鼠标移入时标题和渐变小条分别往上和往下匀速移动到固定的某一位置，同时中间的简介显示，鼠标移出匀速回到初始状态。
 # **代码实现**
