@@ -79,5 +79,5 @@ theme: inside
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/LIJING0906/LIJING0906.github.io.git
+  repo: https://LIJING0906:wanglihong517@github.com/LIJING0906/LIJING0906.github.io.git
   branch: master

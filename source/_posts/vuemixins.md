@@ -1,5 +1,5 @@
 ---
-title: vuemixins
+title: vue混入mixins用法小结
 dropcap: true
 date: 2019-05-28 16:45:47
 tags: vue2.x
