@@ -2,7 +2,7 @@
 title: vue的过渡小记（多元素、多组件）
 dropcap: true
 date: 2018-11-06 11:30:37
-tags: vue2.0
+tags: vue2.x
 categories: vue
 ---
 网页中，一般都存在切换的场景，vue提供了一个简单的切换过渡效果，用< transition>标签包裹要切换的部分即可。

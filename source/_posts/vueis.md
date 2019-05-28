@@ -1,8 +1,8 @@
 ---
-title: vue2.0中的：is和is的区别
+title: vue2.x中的：is和is的区别
 dropcap: true
 date: 2018-11-02 14:08:42
-tags: vue2.0
+tags: vue2.x
 categories: vue
 ---
 最近，工作之余在翻阅vue.js的官方文档，在查看到[动态组件](https://cn.vuejs.org/v2/guide/components.html#动态组件)和[解析 DOM 模板时的注意事项](https://cn.vuejs.org/v2/guide/components.html#解析-DOM-模板时的注意事项)的时候，讲到一个特殊的is特性，觉得很有意思，就来写一篇自己理解的总结。

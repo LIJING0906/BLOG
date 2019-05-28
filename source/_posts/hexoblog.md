@@ -62,11 +62,12 @@ dropcap: true
 ![](hexoblog/deployedit.png)
 ### 三、部署到gitHub，网址访问博客
 ```bash
-    $ hexo deploy #部署到gitHub(hexo d也可以)
+    $ hexo deploy #部署到gitHub(hexo d也可以，hexo d必须在git bash中执行，否则会报错，说没有git环境变量配置)
 ```
 ![](hexoblog/hexod.png)
 看到“Deploy done: git”就说明完成了，不确定可以再去gitHub上的仓库看看
 地址栏输入：YOUR_gitHub_NAME.github.io就可以访问了，炒鸡简单有木有
+**注意** [hexo d必须在git bash中执行，否则会报错，是没有git环境变量导致](https://blog.csdn.net/zhu1500527791/article/details/53616596)
 
 # **最后的最后**
 + gitHub上只能部署静态博客(大家都懂的)
