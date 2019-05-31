@@ -1,8 +1,8 @@
 ---
-title: webpack+vue+sass项目中，sass提取全局引用
+title: webpack3.x+vue2.x+sass项目中，sass提取全局引用
 dropcap: true
 date: 2018-12-14 21:33:40
-tags: ['vue', 'sass', 'webpack']
+tags: ['vue2.x', 'sass', 'webpack3.x']
 categories: webpack
 ---
 接近年底，工作没有那么忙，业余时间就比较多了，就想着把小demo整合到一起，自己搭建一个项目。

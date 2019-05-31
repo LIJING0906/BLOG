@@ -2,7 +2,7 @@
 title: vue混入mixins用法小结
 dropcap: true
 date: 2019-05-28 16:45:47
-tags: vue2.x
+tags: [vue2.x, mixins]
 categories: vue
 ---
 距离上次更新博客将近半年了，因为年后开始做一个大项目，多个产品经理各自负责一个或多个模块，一个模块相当于之前项目的整体。这次我一个人做一个模块，压力有些大，每天只想着把功能做出来，没有时间总结。
@@ -34,5 +34,11 @@ categories: vue
 ### 调用
 在需要用到的文件中引入message.js，然后注册，最后调用就OK。如图所示：
 ![](vuemixins/mixins1.png)
-点击相应的按钮弹出相应类型的消息提示（样式问题在下一篇博客中解决）：
+点击相应的按钮弹出相应类型的消息提示：
 ![](vuemixins/mixins2.png)
+
+### 样式调整
+这里我写了两个样式文件，一个是变量，一个是我们这里需要的消息提示的样式（里面用到了变量），都在main.js中引用。
+![](vuemixins/multiplescss.png)
+再刷新页面点击相应的按钮弹出相应类型的消息提示：
+![](vuemixins/tips.png)
