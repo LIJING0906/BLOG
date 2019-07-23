@@ -191,7 +191,7 @@ SubType.prototype存在属性是因为它对SuperType做了实例化继承，我
     // 寄生组合式继承的实现
 
     //将组合继承中的实例化继承：
-    //SubType.prototype = new SuperType();
+    //Driver.prototype = new Person();
     //改为浅拷贝继承：
     function inheritPrototype(subType, superType){
         var prototype = Object.create(superType.prototype); // 创建对象，创建父类原型的一个副本
@@ -200,34 +200,41 @@ SubType.prototype存在属性是因为它对SuperType做了实例化继承，我
     }
 
     // 父类初始化实例属性和原型属性
-    function SuperType(name){
+    function Person(name){
         this.name = name;
         this.colors = ['red', 'blue', 'green'];
     }
-    SuperType.prototype.sayName = function(){
+    Person.prototype.sayName = function(){
         console.log(this.name);
     };
 
     // 借用构造函数传递增强子类实例属性（支持传参和避免篡改）
-    function SubType(name, age){
-        SuperType.call(this, name);
+    function Driver(name, age){
+        Person.call(this, name);
         this.age = age;
     }
 
     // 将父类原型指向子类
-    inheritPrototype(SubType, SuperType);
+    inheritPrototype(Driver, Person);
 
     // 新增子类原型属性
-    SubType.prototype.sayAge = function(){
+    Driver.prototype.sayAge = function(){
         console.log(this.age);
     }
 
-    var instance1 = new SubType('Jane', 23);
-    var instance2 = new SubType('Summer', 25);
+    var driverA = new Driver('Jane', 23);
+    var driverB = new Driver('Summer', 25);
 
-    instance1.colors.push('2');
-    instance2.colors.push('3');
+    driverA.colors.push('2');
+    driverB.colors.push('3');
 
-    console.log(instance1.colors); // ['red', 'blue', 'green', '2']
-    console.log(instance2.colors); // ['red', 'blue', 'green', '3']
+    console.log(driverA.colors); // ['red', 'blue', 'green', '2']
+    console.log(driverB.colors); // ['red', 'blue', 'green', '3']
+
+    driverA.sayAge(); // 23
+    driverA.sayName(); // Jane
+    
+    driverB.sayAge(); // 25
+    driverB.sayName(); // Summer
 ```
+![](jsInherit/togetherInherit2.png)
