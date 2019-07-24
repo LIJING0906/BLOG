@@ -238,3 +238,5 @@ SubType.prototype存在属性是因为它对SuperType做了实例化继承，我
     driverB.sayName(); // Summer
 ```
 ![](jsInherit/togetherInherit2.png)
+**特点**：高效率，因为只调用了一次构造函数Person，因此避免了在Driver.prototype上创建不必要的、多余的属性；原型链保持不变，可以正常使用instanceof和isPrototypeOf()
+**这是最成熟的方法，也是现在实现库的方法**
