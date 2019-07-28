@@ -178,8 +178,8 @@ categories: 'javaScript'
         name: 'Jack',
         friends: ['a', 'b', 'c']
     };
-    var personC = createAnother(person);
-    personC.sayHi(); // 'hi'
+    var PersonC = createAnother(person);
+    PersonC.sayHi(); // 'hi'
 ```
 ![](jsInherit/parasiticInherit.png)
 **特点**：在原型式继承的基础上，增强对象
