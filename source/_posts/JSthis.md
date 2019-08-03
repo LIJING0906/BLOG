@@ -2,8 +2,8 @@
 title: JS中的this指向问题
 dropcap: true
 date: 2019-07-27 15:28:43
-tags:
-categories:
+tags: 'javaScript'
+categories: 'javaScript'
 ---
 在上篇JS继承中涉及到的好几个知识点都想写，比如call()、apply()从而牵出和bind()的区别，由Object.create()想到与new、{}的区别，原型链以及作用域，然而在参考其他博客时发现，应该先把JS中的this指向弄明白。
 《你不知道的JavaScript》(上卷)第二部分讲到了this，算是比较权威的关于this的讲解，但我觉得有些地方讲得还是晦涩难懂，需要结合一些博客来理解会容易理解一些。
