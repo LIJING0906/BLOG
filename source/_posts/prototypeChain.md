@@ -2,8 +2,8 @@
 title: 原型和原型链
 dropcap: true
 date: 2019-08-10 10:55:18
-tags:
-categories:
+tags: 'javaScript'
+categories: 'javaScript'
 ---
 JavaScript是一门面向对象的设计语言，在JS里除了null和undefined，其余一切皆为对象，是对象就会有原型、构造函数、原型对象，就会有原型链。
 之前写[javaScript的继承方案](https://lijing0906.github.io/post/jsInherit)时，讲到继承依据的原理就是构造函数、实例对象、原型对象之间的三角关系，这只是原型链上的一小部分。
