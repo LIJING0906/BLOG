@@ -46,8 +46,8 @@ categories: 'javaScript'
     console.log(coder1 instanceof Person); // true。instanceof用于判断构造函数的prototype属性是否在实例对象的原型链上
 ```
 ![](jsInherit/protoInherit.png)
-**疑惑点**：属性name在实例coder1中而不在构造函数Coder中；属性name和sayName在Coder.prototype中而不在构造函数Person中。
-**知识点**：name和sayName都是实例属性，实例在哪里创建，实例属性就出现在哪里
+**疑惑点**：属性`name`在实例`coder1`中而不在构造函数`Coder`中；属性`name`和`sayName`在`Coder.prototype`中而不在构造函数`Person`中。
+**知识点**：`name`和`sayName`都是实例属性，实例在哪里创建，实例属性就出现在哪里
 **特点**：实例可以继承的属性有：实例的构造函数的属性，父类构造函数的属性，父类原型的属性
 **缺点**：新实例无法向父类构造函数传参；多个实例共享属性导致实例对[***引用类型***]的操作会被篡改
 ```javascript
@@ -89,7 +89,7 @@ categories: 'javaScript'
     console.log(doctor1 instanceof Person); // false
 ```
 ![](jsInherit/constructorInherit.png)
-**特点**：可以向父类传参；可以继承多个构造函数属性（call多个）；每个实例属性各自独立，解决原型链继承中共享属性的问题
+**特点**：可以向父类传参；可以继承多个构造函数属性（`call`多个）；每个实例属性各自独立，解决原型链继承中共享属性的问题
 **缺点**：只能继承父类构造函数的属性和方法，不能继承父类原型的属性和方法；无法实现函数复用，每个子类实例都有父类构造函数的副本，影响性能
 # **三、组合继承**(常用)
 结合了以上两种模式的优点，传参和复用。利用原型链实现对父类原型属性和方法的继承，借用构造函数实现对父类构造函数的属性的继承。
@@ -132,7 +132,7 @@ categories: 'javaScript'
 ```
 ![](jsInherit/togetherInherit.png)
 **特点**：可以继承父类原型上的属性，可以传参，可复用；每个新实例传入构造函数的属性是私有的
-**缺点**：使用子类创建实例对象时，其原型中会存在两份相同的属性/方法，即两次调用Person()创建实例的时候都往Person.prototype写入了name和age两个属性
+**缺点**：使用子类创建实例对象时，其原型中会存在两份相同的属性/方法，即两次调用`Person()`创建实例的时候都往`Person.prototype`写入了`name`和`age`两个属性
 # **四、原型式继承**
 利用一个空构造函数作为中介，将某个对象直接赋值给空构造函数的原型
 ```javascript
@@ -185,8 +185,8 @@ categories: 'javaScript'
 **特点**：在原型式继承的基础上，增强对象
 **缺点**：同原型式继承
 # **六、寄生组合式继承**(常用)
-第三种继承方式————组合继承虽然实现了需求:共享函数，但不共享属性，可是它是有不足之处：我们在独立属性时只是希望实例有各自的属性就好了，不需要原型（SubType.prototype）中也存在属性，这就多余了。
-SubType.prototype存在属性是因为它对SuperType做了实例化继承，我们将实例化继承换成浅拷贝继承便可以解决问题：
+第三种继承方式————组合继承虽然实现了需求:共享函数，但不共享属性，可是它是有不足之处：我们在独立属性时只是希望实例有各自的属性就好了，不需要原型（`SubType.prototype`）中也存在属性，这就多余了。
+`SubType.prototype`存在属性是因为它对`SuperType`做了实例化继承，我们将实例化继承换成浅拷贝继承便可以解决问题：
 ```javascript
     // 寄生组合式继承的实现
 
@@ -238,5 +238,5 @@ SubType.prototype存在属性是因为它对SuperType做了实例化继承，我
     driverB.sayName(); // Summer
 ```
 ![](jsInherit/togetherInherit2.png)
-**特点**：高效率，因为只调用了一次构造函数Person，因此避免了在Driver.prototype上创建不必要的、多余的属性；原型链保持不变，可以正常使用instanceof和isPrototypeOf()
+**特点**：高效率，因为只调用了一次构造函数`Person`，因此避免了在`Driver.prototype`上创建不必要的、多余的属性；原型链保持不变，可以正常使用`instanceof`和`isPrototypeOf()`
 **这是最成熟的方法，也是现在实现库的方法**

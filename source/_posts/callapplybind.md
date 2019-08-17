@@ -5,8 +5,8 @@ date: 2019-08-03 11:49:24
 tags: 'javaScript'
 categories: 'javaScript'
 ---
-这周讲讲call()、apply()和bind()的区别。[参考链接](https://www.cnblogs.com/moqiutao/p/7371988.html)
-在javascript中，call()和apply()都是为了改变某个函数运行时的上下文（context）而存在的，换句话说，就是为了改变函数体内部this的指向。
+这周讲讲`call()`、`apply()`和`bind()`的区别。[参考链接](https://www.cnblogs.com/moqiutao/p/7371988.html)
+在javascript中，`call()`和`apply()`都是为了改变某个函数运行时的上下文（`context`）而存在的，换句话说，就是为了改变函数体内部`this`的指向。
 JavaScript的一大特点是，函数存在「定义时上下文」和「运行时上下文」以及「上下文是可以改变的」这样的概念。
 # **call()和apply()例子**
 ```javascript
@@ -20,7 +20,7 @@ Fruits.prototype = {
 var apple = new Fruits();
 apple.sayColor();    // red
 ```
-如果有一个对象banana = {color : 'yellow'}想调用apple的sayColor()方法，那么我们可以通过call()或apply()改变sayColor()方法里的this指向来实现：
+如果有一个对象`banana = {color : 'yellow'}`想调用`apple`的`sayColor()`方法，那么我们可以通过`call()`或`apply()`改变`sayColor()`方法里的`this`指向来实现：
 ```javascript
 banana = {
     color: 'yellow'
@@ -28,18 +28,18 @@ banana = {
 apple.sayColor.call(banana); // yellow
 apple.sayColor.apply(banana); // yellow
 ```
-所以，当一个object没有某个方法（本栗子中banana没有sayColor()方法），但是其他对象有（本栗子中apple有sayColor()方法），我们可以借助call()或apply()用其它对象的方法来操作。让我想到了JS的借用构造函数继承。
+所以，当一个`object`没有某个方法（本栗子中`banana`没有`sayColor()`方法），但是其他对象有（本栗子中`apple`有`sayColor()`方法），我们可以借助`call()`或`apply()`用其它对象的方法来操作。让我想到了JS的借用构造函数继承。
 # **call()和apply()区别**
-其实apply()和call()作用完全一样，只是接受参数的方式不太一样。
+其实`apply()`和`call()`作用完全一样，只是接受参数的方式不太一样。
 ```javascript
 var func = function(arg1, arg2) {};
 func.call(this, arg1, arg2);
 func.apply(this, [arg1, arg2]);
 ```
-第一个参数——this是你想指定的上下文，它可以是任何一个JS对象(JS中一切皆对象)，当第一个参数为null、undefined的时候，默认指向window。call()需要把参数按顺序传递进去，而apply()则是把参数放在数组里。
-因此，在确定参数个数的情况下用call()更好，参数一目了然；参数个数不确定时用apply()更好。
+第一个参数——`this`是你想指定的上下文，它可以是任何一个JS对象(JS中一切皆对象)，当第一个参数为`null`、`undefined`的时候，默认指向`window`。`call()`需要把参数按顺序传递进去，而`apply()`则是把参数放在数组里。
+因此，在确定参数个数的情况下用`call()`更好，参数一目了然；参数个数不确定时用`apply()`更好。
 # **bind()**
-和call()很相似，第一个参数是this的指向，从第二个参数开始是接收的参数列表。区别在于bind()方法返回值是函数以及bind()接收的参数列表的使用。
+和`call()`很相似，第一个参数是`this`的指向，从第二个参数开始是接收的参数列表。区别在于`bind()`方法返回值是函数以及`bind()``接收的参数列表的使用。
 1. bind返回值是函数
 ```javascript
 var obj = {
@@ -53,7 +53,7 @@ console.log(dot); // function () { … }
 dot();  // Dot
 printName(); // 这里打印为空，因为window对象里name属性的值默认为空，可以自行打印一下便知
 ```
-bind()方法不会立即执行，而是返回一个改变了上下文this后的函数。而原函数printName()中的this并没有被改变，依旧指向全局对象window。
+`bind()`方法不会立即执行，而是返回一个改变了上下文`this`后的函数。而原函数`printName()`中的`this`并没有被改变，依旧指向全局对象`window`。
 2. 参数的使用
 ```javascript
 function fn(a, b, c) {
@@ -65,7 +65,7 @@ fn1('A', 'B', 'C'); // Dot A B
 fn1('B', 'C'); // Dot B C
 fn.call(null, 'Dot'); // Dot undefined undefined
 ```
-call()是把第二个及以后的参数作为fn()方法的实参传进去，而fn1()方法的实参实则是在bind()中参数的基础上再往后排。
+`call()`是把第二个及以后的参数作为`fn()`方法的实参传进去，而`fn1()`方法的实参实则是在`bind()`中参数的基础上再往后排。
 ***有时候我们也用bind方法实现函数柯里化（是把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数而且返回结果的新函数的技术）***
 ```javascript
 var add = function(x) {
@@ -147,7 +147,7 @@ function log() {
 }
 ```
 7. 绑定函数
-MDN对bind()的解释是：bind()方法会创建一个新函数，称为绑定函数，当调用这个绑定函数时，绑定函数会以创建它时传入 bind()方法的第一个参数作为 this，传入 bind() 方法的第二个以及以后的参数加上绑定函数运行时本身的参数按照顺序作为原函数的参数来调用原函数。
+MDN对`bind()`的解释是：`bind()`方法会创建一个新函数，称为绑定函数，当调用这个绑定函数时，绑定函数会以创建它时传入`bind()`方法的第一个参数作为`this`，传入`bind()`方法的第二个以及以后的参数加上绑定函数运行时本身的参数按照顺序作为原函数的参数来调用原函数。
 ```javascript
 this.num = 9; 
 var mymodule = {
@@ -163,10 +163,10 @@ var boundGetNum = getNum.bind(mymodule);
 boundGetNum(); // 81
 ```
 # **总结**
-call()、apply()和bind()函数存在的区别:
-bind()返回对应函数，便于稍后调用；apply()和call()则是立即调用。
-除此外，在ES6的箭头函数下，call()和apply()将失效，对于箭头函数来说：
-* 箭头函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象，所以不需要类似于var _this = this这种丑陋的写法
-* 箭头函数不可以当作构造函数，也就是说不可以使用new命令， 否则会抛出一个错误
-* 箭头函数不可以使用arguments对象，该对象在函数体内不存在，如果要用， 可以用Rest参数代替
-* 不可以使用yield命令，因此箭头函数不能用作Generator函数，什么是Generator函数可自行查阅资料，推荐阅读阮一峰[Generator函数的含义与用法](http://www.ruanyifeng.com/blog/2015/04/generator.html)、[Generator函数的异步应用](http://es6.ruanyifeng.com/#docs/generator-async)
+`call()`、`apply()`和`bind()`函数存在的区别:
+`bind()`返回对应函数，便于稍后调用；`apply()`和`call()`则是立即调用。
+除此外，在ES6的箭头函数下，`call()`和`apply()`将失效，对于箭头函数来说：
+* 箭头函数体内的`this`对象，就是定义时所在的对象，而不是使用时所在的对象，所以不需要类似于`var _this = this`这种丑陋的写法
+* 箭头函数不可以当作构造函数，也就是说不可以使用`new`命令， 否则会抛出一个错误
+* 箭头函数不可以使用`arguments`对象，该对象在函数体内不存在，如果要用， 可以用`Rest`参数代替
+* 不可以使用`yield`命令，因此箭头函数不能用作`Generator`函数，什么是`Generator`函数可自行查阅资料，推荐阅读阮一峰[Generator函数的含义与用法](http://www.ruanyifeng.com/blog/2015/04/generator.html)、[Generator函数的异步应用](http://es6.ruanyifeng.com/#docs/generator-async)
