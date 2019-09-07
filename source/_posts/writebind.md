@@ -2,8 +2,8 @@
 title: 模拟实现bind()
 dropcap: true
 date: 2019-09-07 10:21:47
-tags:
-categories:
+tags: 'javaScript'
+categories: 'javaScript'
 ---
 前面已经讨论过`bind()`的用法，这篇文章一步一步模拟实现`bind()`。
 # **bind特点**
