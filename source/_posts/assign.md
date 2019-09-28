@@ -138,7 +138,7 @@ console.log(c);
 // } 
 console.log(a === c); // true
  ```
- ## 注意点1
+ ## 注意点1 可枚举型
  原生情况下挂载在`Object`上的属性是不可枚举的，但是直接在`Object`上挂载属性`a`之后是可枚举的，所以必须使用`Object.defineProperty`，并设置`enumerable: false`和`writable: true, configurable: true`。
  以下代码说明`Object`上的属性不可枚举：
  ```javascript
@@ -159,3 +159,162 @@ Object.getOwnPropertyDescriptor(Object, 'assign');
 // }
 Object.propertyIsEnumerable('assign'); // false
  ```
+来看看直接在`Object`上挂载属性`a`之后可枚举的情况：
+```javascript
+Object.a = function() {
+    console.log('log a');
+}
+Object.getOwnpropertyDescriptor(Object, 'a');
+// {
+//      value: ƒ, 
+//      writable: true, 
+//      enumerable: true,  // 注意这里是 true
+//      configurable: true
+// }
+Object.propertyIsEnumerable('a'); // true
+```
+因为`Object.assign`是不可枚举的，所以不能用直接挂载的方式（可枚举）来模拟实现，必须用`Object.defineProperty`来设置`writable: true, enumerable: false, configurable: true`，当然默认情况下都是`false`。
+```javascript
+Object.defineProperty(Object, 'b', {
+    value: function() {
+        console.log('log b');
+    }
+})
+Object.getOwnPropertyDescriptor(Object, 'b');
+// {
+//     value: ƒ, 
+//     writable: false,     // 可写
+//     enumerable: false,  // 不可枚举，注意这里是 false
+//     configurable: false  // 可配置
+// }
+```
+## 注意点2 判断参数是否正确
+因为`undefined`和`null`是相等的，即`undefined == null`返回`true`，只需要按照如下方式判断就好了。
+```javascript
+if (target == null) { // TypeError if undefined or null
+    throw new TypeError('Cannot convert undefined or null to object');
+}
+```
+## 注意点3 原始类型被包装为对象
+```javascript
+var v1 = 'abc';
+var v2 = true;
+var v3 = 10;
+var v4 = Symbol('foo');
+var obj = Object.assgin({}, v1, null, v2, undefined, v3, v4);
+// 原始类型会被包装，null和undefined会被忽略
+// 注意，只有字符串的包装对象才可能有自身可枚举属性
+console.log(obj); // {'0': 'a', '1': 'b', '2': 'c'}
+```
+上面的代码可以看出v1、v2、v3实际上被忽略了，原因在于他们自身没有**可枚举属性**。
+```javascript
+var v1 = 'abc';
+var v2 = true;
+var v3 = 10;
+var v4 = Symbol('foo');
+
+// Object.keys() 返回一个数组，包含所有可枚举属性
+// 只会查找对象直接包含的属性，不查找[[Prototype]]链
+Object.keys( v1 ); // [ '0', '1', '2' ]
+Object.keys( v2 ); // []
+Object.keys( v3 ); // []
+Object.keys( v4 ); // []
+Object.keys( v5 ); // TypeError: Cannot convert undefined or null to object
+
+// Object.getOwnPropertyNames(..) 返回一个数组，包含所有属性，无论它们是否可枚举
+// 只会查找对象直接包含的属性，不查找[[Prototype]]链
+Object.getOwnPropertyNames( v1 ); // [ '0', '1', '2', 'length' ]
+Object.getOwnPropertyNames( v2 ); // []
+Object.getOwnPropertyNames( v3 ); // []
+Object.getOwnPropertyNames( v4 ); // []
+Object.getOwnPropertyNames( v5 ); // TypeError: Cannot convert undefined or null to object
+```
+但是下面的代码是可以执行的：
+```javascript
+var a = 'abc';
+var b = {
+    v1: 'def',
+    v2: true,
+    v3: 10,
+    v4: Symbol('foo'),
+    v5: null,
+    v6: undefined
+}
+var obj = Objec.assign(a, b);
+console.log(obj);
+// {
+//     [String: 'abc']
+//     v1: 'def',
+//     v2: true,
+//     v3: 10,
+//     v4: Symbol('foo'),
+//     v5: null,
+//     v6: undefined
+// }
+```
+原因很简单，因为此时`undefined`、`true`等不适 作为对象，而是作为对象`b`的属性值，对象`b`是可枚举的。
+```javascript
+Object.keys(b); // [ 'v1', 'v2', 'v3', 'v4', 'v5', 'v6' ]
+```
+这里其实又可以看出一个问题来，那就是目标对象如果是原始类型，会被包装成对象，对应上面的代码就是目标对象`a`会被包装成`[String: 'abc']`，那模拟实现时应该如何处理呢？很简单，使用`Object()`就OK。
+```javascript
+var a = 'abc';
+console.log(Object(a)); // [String: 'abc']
+```
+到这里已经介绍了很多知识了，让我们再来延伸一下。
+```javascript
+var a = 'abc';
+var b = 'def';
+Object.assign(a, b); // TypeError: Cannot assign to read only property '0' of object '[object String]'
+```
+报错的原因在于`Object.assgin()`时，其属性描述符为不可写，即`writable: false`。
+```javascript
+var myObject = Object('abc');
+Object.getOwnPropertyNames(myObject);
+// [ '0', '1', '2', 'length' ]
+
+Object.getOwnPropertyDescriptor(myObject, '0');
+// { 
+//   value: 'a',
+//   writable: false, // 注意这里
+//   enumerable: true,
+//   configurable: false 
+// }
+```
+## 注意点4 存在性
+如何在不访问属性值的情况下判断对象中是否存在某个属性呢：
+```javascript
+var anotherObject = {
+    a: 1
+};
+
+// 创建一个关联到anotherObject的对象
+var myObject = Object.create(anotherObject);
+myObject.b = 2;
+
+('a' in myObject); // true
+('b' in myObject); // true
+
+myObject.hasOwnProperty('a'); // false
+myObject.hasOwnProperty('b'); // true
+```
+上边用`in`操作符和`hasOwnProperty`方法，区别如下：
+1. `in`操作符会检查属性是否在对象及其`[[Prototype]]`原型链上
+2. `hasOwnProperty()`只会检查属性是否存在于`myObject`对象中，不会检查`[[Prototype]]`原型链
+`Object.assign`方法肯定不会拷贝原型链上的属性，所以模拟实现时需要用`hasOwnProperty()`判断处理下，但是直接使用`myObject.hasOwnProperty()`是有问题的，因为有的对象可能没有连接到`Object.prototype`上（比如通过 `Object.create(null)`来创建），这种情况下，使用`myObject.hasOwnProperty()`就会失败。
+
+```javascript
+var myObject = Object.create(null);
+myObject.b = 2;
+
+('b' in myObject); // true
+
+myObject.hasOwnProperty( 'b' ); // TypeError: myObject.hasOwnProperty is not a function
+```
+解决方法也很简单，使用之前介绍的`call`就可以了，使用如下:
+```javascript
+var myObject = Object.create(null);
+myObject.b = 2;
+
+Object.prototype.hasOwnProperty.call(myObject, 'b'); // true
+```
