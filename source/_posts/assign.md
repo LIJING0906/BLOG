@@ -318,3 +318,4 @@ myObject.b = 2;
 
 Object.prototype.hasOwnProperty.call(myObject, 'b'); // true
 ```
+[参考文章](https://mp.weixin.qq.com/s/qiBPkiWTZ0FQIEaQjFgcNA)
