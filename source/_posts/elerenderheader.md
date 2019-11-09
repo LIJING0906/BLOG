@@ -2,8 +2,8 @@
 title: elementUI 2.0.11自定义表头
 dropcap: true
 date: 2018-11-15 21:17:30
-tags:
-categories:
+tags: element-ui
+categories: element-ui
 ---
 目前所做的项目都是后台管理系统，前端框架用的VUE，为了开发速度快，我们都会选择合适的组件库。诶！饿了么团队开发的elementUI就被我们选中啦。
 用起来还是很顺手的，后台系统的基本功能都有示例代码，很方便，但是有些特殊的功能没有示例代码，只是文档中有简单的说明，这个只能去网上搜索一些大神的博客来帮忙啦。
