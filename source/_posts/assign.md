@@ -6,7 +6,7 @@ tags: 'javaScript'
 categories: 'javaScript'
 ---
 上周在总结赋值和深浅拷贝的时候提到了`Object.assign`这种浅拷贝方式。这周谈谈它的原理以及实现方式。
-# 浅拷贝Object.assign
+# **浅拷贝Object.assign**
 上篇文章有讲到它的定义和用法，主要是将所有**可枚举属性**的值从一个或多个源对象中复制到目标对象，同时返回目标对象。
 语法如下：
 ```javascript
@@ -81,7 +81,7 @@ console.log(c);
 // } 
 console.log(a === c); // true
  ```
- # Object.assign模拟实现
+ # **Object.assign模拟实现**
  实现一个`Object.assign`大致思路如下:
 
  1、判断原生`Object`是否支持该函数，如果不存在的话创建一个函数`assign`,并使用`Object.defineProperty`将该函数绑定到`Object`上。
